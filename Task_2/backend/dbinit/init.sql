@@ -1,0 +1,16 @@
+CREATE DATABASE IF NOT EXISTS onliveitdb;
+
+USE onliveitdb;
+
+DROP TABLE IF EXISTS products;
+
+CREATE TABLE products (
+  id           BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  product_name VARCHAR(255) NOT NULL,
+  price        INT         NOT NULL,
+  image_url    VARCHAR(255) DEFAULT NULL,
+  active       TINYINT     DEFAULT NULL,
+  created_at   TIMESTAMP   DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (id),
+  UNIQUE INDEX id_UNIQUE (id ASC) VISIBLE
+);
