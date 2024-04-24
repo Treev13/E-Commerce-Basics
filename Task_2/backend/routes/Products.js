@@ -16,7 +16,6 @@ router.get('/:id', async (req, res) => {
 });
 
 router.post('/', authenticateToken, async (req, res) => {
-    console.log(req.body);
     const { name, price, image, checked } = req.body;
     let active = 0;
     if (checked === 'on') {
