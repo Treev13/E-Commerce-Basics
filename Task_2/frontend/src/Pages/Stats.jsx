@@ -16,13 +16,13 @@ const options = {
       },
       scaleLabel: {
         display: false,
-        labelString: 'Ár'
+        labelString: 'Price'
       }
     }],
     xAxes: [{
       scaleLabel: {
         display: true,
-        labelString: 'Termék'
+        labelString: 'Product'
       }
     }]
   }
@@ -35,7 +35,7 @@ const Stats = () => {
   const [prices, setPrices] = useState(null);
 
   function getDataFromProducts(products) {
-    setNames(products.map((product) => product.name));
+    setNames(products.map((product) => product.product_name));
     setPrices(products.map((product) => product.price));
   }
 
@@ -45,7 +45,7 @@ useEffect(() => {
         setLoading(false);
         setProducts(products);
         const sortedProductsByNameDesc = products.sort((a,b) => 
-          b.name.localeCompare(a.name)
+          b.product_name.localeCompare(a.product_name)
         );
         getDataFromProducts(sortedProductsByNameDesc);
       })
