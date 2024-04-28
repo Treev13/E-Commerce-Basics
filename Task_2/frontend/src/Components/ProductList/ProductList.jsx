@@ -12,8 +12,8 @@ const ProductList = ({products}) => {
             {products.map((item,i)=>{
                 return <Item key={i} 
                                 id={item.id}
-                                image={item.image}
-                                name={item.name}
+                                image={item.image_url}
+                                name={item.product_name}
                                 price={item.price}/>
             })}
         </div>
