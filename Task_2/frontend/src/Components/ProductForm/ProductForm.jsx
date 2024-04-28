@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import axios from 'axios';
 import './ProductForm.css';
 
 const ProductForm = ({ onSave, disabled }) => {
@@ -6,10 +7,10 @@ const ProductForm = ({ onSave, disabled }) => {
   const [price, setPrice] = useState('');
   const [nameError, setNameError] = useState('');
   const [priceError, setPriceError] = useState('');
-  const [image, setImage] = useState('');
+  const [file, setFile] = useState('');
 
-  const onSubmit = (e) => {
-    e.preventDefault();
+  const onSubmit = async (event) => {
+    event.preventDefault();
     setNameError('');
     setPriceError('');
 
@@ -28,8 +29,11 @@ const ProductForm = ({ onSave, disabled }) => {
       return;
     };
 
-    const formData = new FormData(e.target);
-    formData.append('image', image.name)
+    const imageForm = new FormData();
+    imageForm.append('file', file)
+    axios.post('/api/products/upload', imageForm)
+    const formData = new FormData(event.target);
+    formData.append('image', file.name)
     const entries = [...formData.entries()];
 
     const product = entries.reduce((acc, entry) => {
@@ -48,7 +52,7 @@ const ProductForm = ({ onSave, disabled }) => {
       reader.onload = (() => resolve(reader.result));
       reader.onerror = ((error) => reject(error));
     });
-  
+
   return (
     <form className="main" onSubmit={onSubmit}>
       <div className={'title'}>
@@ -91,8 +95,9 @@ const ProductForm = ({ onSave, disabled }) => {
         <input
           id='fileInput'
           type='file'
+          name='file'
           accept='.png,.jpeg,.jpg'
-          onChange={(ev) => setImage(ev.target.files[0])}
+          onChange={(ev) => setFile(ev.target.files[0])}
         />
       </div>
 
@@ -106,4 +111,3 @@ const ProductForm = ({ onSave, disabled }) => {
 };
 
 export default ProductForm;
-
