@@ -5,6 +5,7 @@ import productRoute from './routes/Products.js';
 const app = express();
 
 app.use(express.json());
+app.use(express.static('public'));
 
 app.use('/users', userRoute);
 app.use('/api/products', productRoute);
